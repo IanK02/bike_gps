@@ -38,7 +38,7 @@ async function takeMapScreenshot(lati, long, zoom, outputPath) {
   await convertToBlackAndWhite('screenshot.png', outputPath);
 }
 
-//Converting the image to black and white in an effort to save RAM, alas not enough
+//Converting the image to black and white in an effort to save RAM
 async function convertToBlackAndWhite(inputPath, outputPath) {
   const image = await jimp.read(inputPath);
   image.grayscale();
@@ -46,6 +46,7 @@ async function convertToBlackAndWhite(inputPath, outputPath) {
   console.log('Black and white image saved');
 }
 
+//Start the express server
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
