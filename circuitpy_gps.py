@@ -62,6 +62,8 @@ while True:
             response.close()
             print('coordinates sent successfully')
             bitmap_url = 'http://127.0.0.1:5500/pic.bmp'
+            #Fetch the image from the map website, this is the part that the Pico W doesn't have
+            #the RAM for
             response = requests.get(bitmap_url, timeout=10)
             img_data = BytesIO(response.content)
             image, palette = adafruit_imageload.load(img_data)
