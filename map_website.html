@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bike GPS Site</title>
+    <style>
+      #map {
+        height: 100%;
+      }
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+    <script async src="https://maps.googleapis.com/maps/api/js?key=YourAPIKey&callback=initMap"></script>
+    <script>
+      let map; 
+      function initMap() {
+        const myLocation = {lat: 47.7061, lng: -122.3328};
+        map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 15,
+          center: myLocation,
+        });
+        const ctaLayer = new google.maps.KmlLayer({
+          <!-- This link can be any publicly available .kml file -->
+          url: "https://ridewithgps.com/routes/46480379.kml",
+          preserveViewport: true,
+          map: map,
+          suppressInfoWindows: true,
+        });
+      }
+      function updateMapLocation(lat, lng, zoom) {
+        if (map) {
+          map.setCenter({ lat: lat, lng: lng });
+          map.setZoom(zoom);
+        }
+      }
+      async function updateScreenshot() {
+        const response = await fetch('pic.bmp');
+        if (response.ok) {
+          const screenshot = document.getElementById('screenshot');
+          screenshot.src = 'pic.bmp'; 
+        }
+      }
+      updateScreenshot();
+      window.updateMapLocation = updateMapLocation;
+      window.map = map
+    </script>
+  </head>
+  <body>
+    <div id="map"></div>
+    <img id="screenshot" src="" alt="Map Screenshot">
+  </body>
+</html>
